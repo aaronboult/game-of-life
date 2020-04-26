@@ -2,7 +2,7 @@
 An implementation of Conway's Game of Life in Go using the fyne GUI package.
 
 Package using fyne:
-`
+```
 fyne package -os windows
 # For windows
 
@@ -11,4 +11,4 @@ fyne package -os linux
 
 fyne package -os darwin
 # For macOS
-`
+```
