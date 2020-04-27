@@ -29,7 +29,7 @@ const (
 
 func main() {
 
-	if gridSizeX < 8 || gridSizeY < 8 || gridSizeX > 28 || gridSizeY > 28 {
+	if gridSizeX < 8 || gridSizeY < 8 || gridSizeX > 28 || gridSizeY > 28 { // If the grid size is not within the valid range
 
 		panic("World grid dimensions are invalid - Minimum grid = 8x8 - Maximum grid = 28x28")
 
@@ -41,13 +41,13 @@ func main() {
 
 	}
 
-	wrld := world{grid: make([][]*widget.Check, gridSizeY), generating: false, currentGeneration: 0} // 8x8 world
+	wrld := world{grid: make([][]*widget.Check, gridSizeY), generating: false, currentGeneration: 0}
 
 	for y := 0; y < gridSizeY; y++ {
 
 		wrld.grid[y] = make([]*widget.Check, gridSizeX)
 
-	}
+	} // Create a jagged slice of checkboxes the same size as the 'wrld'
 
 	app := app.New()
 
@@ -63,7 +63,7 @@ func main() {
 
 		startButton.DisableableWidget.Disable()
 
-		go wrld.beginGeneration(generationLabel)
+		go wrld.beginGeneration(generationLabel) // Begin generating evolutions on a goroutine
 
 	})
 
@@ -75,11 +75,9 @@ func main() {
 
 		for x := 0; x < gridSizeX; x++ {
 
-			wrld.grid[y][x] = widget.NewCheck("", func(value bool) {
+			wrld.grid[y][x] = widget.NewCheck("", func(value bool) {})
 
-			})
-
-			rows[y].AddObject(wrld.grid[y][x])
+			rows[y].AddObject(wrld.grid[y][x]) // Place the current checkbox in the respective row
 
 		}
 
@@ -93,7 +91,7 @@ func main() {
 
 			rows[y].AddObject(startButton)
 
-			break // Start button
+			break
 
 		case 2:
 
@@ -111,7 +109,7 @@ func main() {
 				}),
 			)
 
-			break // Next button
+			break
 
 		case 4:
 
@@ -125,7 +123,7 @@ func main() {
 				}),
 			)
 
-			break // Stop button
+			break
 
 		case 5:
 
@@ -152,12 +150,13 @@ func main() {
 
 						}
 
-					}
+					} // Clear the grid
 
 				}),
 			)
 
-			break // Reset button
+			break
+
 		}
 
 	}
@@ -282,7 +281,7 @@ func (thisWorld *world) checkNeighbor(x int, y int, xOffset int, yOffset int) in
 
 			if thisWorld.grid[y+yOffset][x+xOffset].Checked {
 
-				return 1
+				return 1 // Neighbor is alive
 
 			}
 
@@ -290,6 +289,6 @@ func (thisWorld *world) checkNeighbor(x int, y int, xOffset int, yOffset int) in
 
 	}
 
-	return 0
+	return 0 // Neighbor is dead
 
 }
